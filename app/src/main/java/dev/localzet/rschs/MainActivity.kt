@@ -18,7 +18,7 @@ class MainActivity:AppCompatActivity(){
  private val refresh=object:BroadcastReceiver(){override fun onReceive(c:Context?,i:Intent?){render()}}
  override fun onCreate(b:Bundle?){super.onCreate(b);root=LinearLayout(this).apply{orientation=LinearLayout.VERTICAL;setPadding(36,28,36,28);setBackgroundColor(Color.rgb(11,14,19))}
   setContentView(ScrollView(this).apply{addView(root)});registerReceiver(refresh,IntentFilter(ACTION_REFRESH),RECEIVER_NOT_EXPORTED)
-  render()\n  if(ActivityCompat.checkSelfPermission(this,Manifest.permission.READ_SMS)!=PackageManager.PERMISSION_GRANTED) ActivityCompat.requestPermissions(this,arrayOf(Manifest.permission.READ_SMS,Manifest.permission.RECEIVE_SMS),7) else {AlertStore.importInbox(this);render()}
+  render(); if(ActivityCompat.checkSelfPermission(this,Manifest.permission.READ_SMS)!=PackageManager.PERMISSION_GRANTED) ActivityCompat.requestPermissions(this,arrayOf(Manifest.permission.READ_SMS,Manifest.permission.RECEIVE_SMS),7) else {AlertStore.importInbox(this);render()}
  }
  override fun onRequestPermissionsResult(r:Int,p:Array<out String>,g:IntArray){super.onRequestPermissionsResult(r,p,g);if(r==7&&g.firstOrNull()==PackageManager.PERMISSION_GRANTED)AlertStore.importInbox(this);render()}
  override fun onDestroy(){unregisterReceiver(refresh);super.onDestroy()}
